@@ -1,0 +1,26 @@
+[package]
+authors = ["Jimmy Cuadra <jimmy@jimmycuadra.com>"]
+build = "build.rs"
+description = "A matchmaking system simulator for Heroes of the Storm."
+documentation = "http://jimmycuadra.github.io/hotsq/hotsq"
+homepage = "https://github.com/jimmycuadra/hotsq"
+keywords = ["heroes of the storm", "hots", "matchmaking"]
+license = "MIT"
+name = "hotsq"
+readme = "README.md"
+repository = "https://github.com/jimmycuadra/hotsq"
+version = "0.1.0"
+
+[build-dependencies]
+serde_codegen = "0.6.7"
+syntex = "0.24.0"
+
+[dependencies]
+clap = "1.5.4"
+rand = "0.3.12"
+serde = "0.6.7"
+
+[dependencies.toml]
+default-features = false
+features = ["serde"]
+version = "0.1.25"
