@@ -12,6 +12,7 @@ repository = "https://github.com/jimmycuadra/hotsq"
 version = "0.1.0"
 
 [[bin]]
+doc = false
 name = "hotsq"
 test = false
 
