@@ -11,6 +11,15 @@ readme = "README.md"
 repository = "https://github.com/jimmycuadra/hotsq"
 version = "0.1.0"
 
+[[bin]]
+name = "hotsq"
+test = false
+
+[lib]
+doctest = false
+name = "hotsq"
+test = false
+
 [build-dependencies]
 serde_codegen = "0.6.7"
 syntex = "0.24.0"

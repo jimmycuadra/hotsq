@@ -1,15 +1,7 @@
 extern crate clap;
-extern crate rand;
-extern crate toml;
+extern crate hotsq;
 extern crate serde;
-
-mod error;
-mod group;
-mod hero;
-mod matchmaker;
-mod mode;
-mod plan;
-mod player;
+extern crate toml;
 
 use std::fs::File;
 use std::io::{Read, Write};
@@ -19,10 +11,7 @@ use clap::{App, AppSettings, Arg, SubCommand};
 use serde::{Deserialize, Serialize};
 use toml::{Encoder, Decoder, Parser, Value};
 
-use error::Error;
-use matchmaker::Matchmaker;
-use mode::Mode;
-use plan::Plan;
+use hotsq::{Error, Matchmaker, Mode, Plan};
 
 fn main() {
     if let Err(error) = real_main() {
@@ -83,7 +72,7 @@ fn real_main() -> Result<(), Error> {
 
             match write!(file, "{}", Value::Table(encoder.toml)) {
                 Ok(_) => Ok(()),
-                Err(error) => Err(From::from(error)),
+                Err(error) => Err(Error::new(format!("{}", error))),
             }
         },
         ("run", Some(matches)) => {
@@ -94,10 +83,13 @@ fn real_main() -> Result<(), Error> {
             let mut parser = Parser::new(&contents);
             let toml_value = match parser.parse() {
                 Some(value) => Value::Table(value),
-                None => return Err(::std::convert::From::from(&parser.errors[0])),
+                None => return Err(Error::new(format!("{}", &parser.errors[0]))),
             };
             let mut decoder = Decoder::new(toml_value);
-            let plan: Plan = try!(Deserialize::deserialize(&mut decoder));
+            let plan: Plan = match Deserialize::deserialize(&mut decoder) {
+                Ok(plan) => plan,
+                Err(error) => return Err(Error::new(format!("{}", error))),
+            };
             let matchmaker = Matchmaker::new(&plan);
 
             matchmaker.run();

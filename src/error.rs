@@ -2,8 +2,6 @@ use std::error::Error as StdError;
 use std::io::Error as IoError;
 use std::num::ParseIntError;
 
-use toml::{DecodeError, ParserError};
-
 #[derive(Debug)]
 pub struct Error {
     error: String,
@@ -38,17 +36,5 @@ impl From<IoError> for Error {
 impl From<ParseIntError> for Error {
     fn from(error: ParseIntError) -> Error {
         Error::new(error.description())
-    }
-}
-
-impl From<DecodeError> for Error {
-    fn from(error: DecodeError) -> Error {
-        Error::new(format!("{}", error))
-    }
-}
-
-impl<'a> From<&'a ParserError> for Error {
-    fn from(error: &'a ParserError) -> Error {
-        Error::new(format!("{}", error))
     }
 }
