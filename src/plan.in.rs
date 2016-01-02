@@ -25,7 +25,7 @@ impl Plan {
         let mut groups = vec![];
 
         for _ in 0..count {
-            groups.push(Group::One(Player::new(random(), random())));
+            groups.push(Group::One(Player::new(random())));
         }
 
         Plan::new(mode, groups)
