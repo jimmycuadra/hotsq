@@ -65,6 +65,12 @@ impl Rand for HeroName {
     }
 }
 
+impl<'a> ::std::fmt::Display for HeroName {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> Result<(), ::std::fmt::Error> {
+        write!(f, "{:?}", self)
+    }
+}
+
 #[derive(Debug)]
 pub enum Role {
     Assassin,

@@ -30,4 +30,12 @@ impl Plan {
 
         Plan::new(mode, groups)
     }
+
+    pub fn groups_vec(&self) -> Vec<&Group> {
+        self.groups.iter().map(|group| group).collect()
+    }
+
+    pub fn mode(&self) -> Mode {
+        self.mode
+    }
 }

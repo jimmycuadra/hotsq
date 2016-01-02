@@ -1,7 +1,7 @@
 use error::Error;
 use group::Group;
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Copy, Clone, Debug, Deserialize, Serialize)]
 pub enum Mode {
     HeroLeague,
     QuickMatch,
@@ -31,5 +31,19 @@ impl Mode {
         }
 
         Ok(())
+    }
+
+    pub fn as_str(&self) -> &'static str {
+        match *self {
+            Mode::HeroLeague => "Hero League",
+            Mode::QuickMatch => "Quick Match",
+            Mode::TeamLeague => "Team League",
+        }
+    }
+}
+
+impl<'a> ::std::fmt::Display for Mode {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> Result<(), ::std::fmt::Error> {
+        write!(f, "{}", self.as_str())
     }
 }

@@ -90,7 +90,7 @@ fn real_main() -> Result<(), Error> {
                 Ok(plan) => plan,
                 Err(error) => return Err(Error::new(format!("{}", error))),
             };
-            let matchmaker = Matchmaker::new(&plan);
+            let mut matchmaker = Matchmaker::new(&plan);
 
             matchmaker.run();
 

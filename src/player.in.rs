@@ -12,3 +12,9 @@ impl Player {
         }
     }
 }
+
+impl<'a> ::std::fmt::Display for Player {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> Result<(), ::std::fmt::Error> {
+        write!(f, "{}", self.hero_name)
+    }
+}
